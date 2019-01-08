@@ -56,6 +56,7 @@
 	**************************************************************************
 	*/
 	
+uint32_t calc_average(uint32_t* value, uint8_t qnt);
 
 
 #endif /* AVERAGE_CALC_3_FROM_5_H_INCLUDED */
