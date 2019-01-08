@@ -79,10 +79,8 @@ extern UART_HandleTypeDef huart1;
 uint32_t Calc_Average(uint32_t* value, uint8_t qnt)
 {
 	if (qnt <3) return 0;
-	char DataChar[100];
 
-	sprintf(DataChar,"qnt=%d\r\n", (int)qnt);
-	HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
+	char DataChar[100];
 
 	for (int q=0; q<qnt; q++)
 	{
@@ -90,12 +88,12 @@ uint32_t Calc_Average(uint32_t* value, uint8_t qnt)
 		HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
 	}
 
-	sprintf(DataChar,"\r\n", (int)qnt);
+	sprintf(DataChar," -> ");
 	HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
 
 	for (int j=0; j<qnt-1; j++)
 	{
-		for (int i=0; i < qnt-j; i++)
+		for (int i=0; i < qnt-j-1; i++)
 		{
 			if (value[i] > value[i+1])
 			{
@@ -106,16 +104,13 @@ uint32_t Calc_Average(uint32_t* value, uint8_t qnt)
 		}
 	}
 
-	sprintf(DataChar,"qnt=%d\r\n", (int)qnt);
-	HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
-
 	for (int q=0; q<qnt; q++)
 	{
 		sprintf(DataChar," %d ", (int)value[q]);
 		HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
 	}
 
-	sprintf(DataChar,"\r\n", (int)qnt);
+	sprintf(DataChar," ; ");
 	HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
 
 	uint32_t rezult = 0;
@@ -125,7 +120,6 @@ uint32_t Calc_Average(uint32_t* value, uint8_t qnt)
 	}
 
 	rezult = rezult / (qnt-2);
-
 	return rezult;
 }
 
