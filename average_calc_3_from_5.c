@@ -104,8 +104,8 @@ uint32_t Calc_Average(uint32_t* value, uint8_t qnt) {
 		HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
 	}
 
-	sprintf(DataChar,"\r\n");
-	HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
+//	sprintf(DataChar,"\r\n");
+//	HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
 
 	uint32_t rezult = 0;
 	for (int s=1; s<qnt-1; s++) {
