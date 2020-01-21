@@ -58,7 +58,8 @@
 	**************************************************************************
 	*/
 	
-uint32_t Calc_Average(uint32_t* value, uint8_t qnt);
+uint32_t Calc_Average(uint32_t* _value_arr_u32, uint8_t _aver_qnt_u8);
+void Bubble_sort(uint32_t* _sort_arr_u32, uint8_t _sort_qnt_u8);
 
 
 #endif /* AVERAGE_CALC_3_FROM_5_H_INCLUDED */

@@ -76,45 +76,51 @@ extern UART_HandleTypeDef huart1;
 **************************************************************************
 */
 
-uint32_t Calc_Average(uint32_t* value, uint8_t qnt) {
-	if (qnt <3) return 0;
+uint32_t Calc_Average(uint32_t* _value_arr_u32, uint8_t _aver_qnt_u8) {
+	if (_aver_qnt_u8 <3) return 0;
 
 	char DataChar[100];
 
-	for (int q=0; q<qnt; q++) {
-		sprintf(DataChar," %d ", (int)value[q]);
+	for (int q=0; q<_aver_qnt_u8; q++) {
+		sprintf(DataChar," %d ", (int)_value_arr_u32[q]);
 		HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
 	}
 
 	sprintf(DataChar," -> ");
 	HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
 
-	for (int j=0; j<qnt-1; j++) {
-		for (int i=0; i < qnt-j-1; i++) {
-			if (value[i] > value[i+1]) {
-				uint32_t tmp = value[i];
-				value[i] = value[i+1];
-				value[i+1] = tmp;
+	Bubble_sort(_value_arr_u32, _aver_qnt_u8);
+
+	for (int q=0; q<_aver_qnt_u8; q++) {
+		sprintf(DataChar," %d ", (int)_value_arr_u32[q]);
+		HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
+	}
+		//	sprintf(DataChar,"\r\n");
+		//	HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
+
+	uint32_t rezult_u32 = 0;
+	for (int s=1; s<_aver_qnt_u8-1; s++) {
+		rezult_u32 = rezult_u32 + _value_arr_u32[s];
+	}
+
+	rezult_u32 = rezult_u32 / (_aver_qnt_u8-2);
+	return rezult_u32;
+}
+//*****************************************************************************
+
+void Bubble_sort(uint32_t* _sort_arr_u32, uint8_t _sort_qnt_u8) {
+	for (int j=0; j<_sort_qnt_u8-1; j++) {
+		for (int i=0; i < _sort_qnt_u8-j-1; i++) {
+			if (_sort_arr_u32[i] > _sort_arr_u32[i+1]) {
+				uint32_t tmp_u32 = _sort_arr_u32[i];
+				_sort_arr_u32[i] = _sort_arr_u32[i+1];
+				_sort_arr_u32[i+1] = tmp_u32;
 			}
 		}
 	}
-
-	for (int q=0; q<qnt; q++) {
-		sprintf(DataChar," %d ", (int)value[q]);
-		HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
-	}
-
-//	sprintf(DataChar,"\r\n");
-//	HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
-
-	uint32_t rezult = 0;
-	for (int s=1; s<qnt-1; s++) {
-		rezult = rezult + value[s];
-	}
-
-	rezult = rezult / (qnt-2);
-	return rezult;
 }
+//*****************************************************************************
+
 
 /*
 **************************************************************************
