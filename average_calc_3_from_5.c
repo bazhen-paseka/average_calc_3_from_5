@@ -20,16 +20,12 @@
 *							INCLUDE FILES
 **************************************************************************
 */
-
-#include "average_calc_3_from_5.h"
-
+	#include "average_calc_3_from_5.h"
 /*
 **************************************************************************
 *							LOCAL DEFINES
 **************************************************************************
 */
-
-extern UART_HandleTypeDef huart1;
 
 /*
 **************************************************************************
@@ -76,27 +72,30 @@ extern UART_HandleTypeDef huart1;
 **************************************************************************
 */
 
-uint32_t Calc_Average(uint32_t* _value_arr_u32, uint8_t _aver_qnt_u8) {
-	if (_aver_qnt_u8 <3) return 0;
+uint32_t Calc_Average( 	uint32_t*	_value_arr_u32	,
+						uint8_t 	_aver_qnt_u8	) {
 
+	if (_aver_qnt_u8 <3) {
+		return 0;
+	}
 	char DataChar[100];
 
 	for (int q=0; q<_aver_qnt_u8; q++) {
 		sprintf(DataChar," %d ", (int)_value_arr_u32[q]);
-		HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
+		One_pin_debug_print( (uint8_t *)DataChar, strlen(DataChar) ) ;
 	}
 
 	sprintf(DataChar," -> ");
-	HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
+	One_pin_debug_print( (uint8_t *)DataChar, strlen(DataChar) ) ;
 
-	Bubble_sort(_value_arr_u32, _aver_qnt_u8);
+	Bubble_sort( _value_arr_u32, _aver_qnt_u8);
 
 	for (int q=0; q<_aver_qnt_u8; q++) {
 		sprintf(DataChar," %d ", (int)_value_arr_u32[q]);
-		HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
+		One_pin_debug_print( (uint8_t *)DataChar, strlen(DataChar) ) ;
 	}
-		//	sprintf(DataChar,"\r\n");
-		//	HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
+		sprintf(DataChar,"\r\n");
+		One_pin_debug_print( (uint8_t *)DataChar, strlen(DataChar) ) ;
 
 	uint32_t rezult_u32 = 0;
 	for (int s=1; s<_aver_qnt_u8-1; s++) {
@@ -108,7 +107,9 @@ uint32_t Calc_Average(uint32_t* _value_arr_u32, uint8_t _aver_qnt_u8) {
 }
 //*****************************************************************************
 
-void Bubble_sort(uint32_t* _sort_arr_u32, uint8_t _sort_qnt_u8) {
+void Bubble_sort(	uint32_t* 	_sort_arr_u32	,
+					uint8_t 	_sort_qnt_u8	) {
+
 	for (int j=0; j<_sort_qnt_u8-1; j++) {
 		for (int i=0; i < _sort_qnt_u8-j-1; i++) {
 			if (_sort_arr_u32[i] > _sort_arr_u32[i+1]) {
@@ -125,5 +126,12 @@ void Bubble_sort(uint32_t* _sort_arr_u32, uint8_t _sort_qnt_u8) {
 /*
 **************************************************************************
 *                           LOCAL FUNCTIONS
+**************************************************************************
+*/
+
+
+/*
+**************************************************************************
+*                          			END
 **************************************************************************
 */
