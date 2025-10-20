@@ -82,17 +82,17 @@ uint32_t Calc_Average(uint32_t* _value_arr_u32, uint8_t _aver_qnt_u8) {
 	char DataChar[100];
 
 	for (int q=0; q<_aver_qnt_u8; q++) {
-		sprintf(DataChar," %d ", (int)_value_arr_u32[q]);
+		sprintf(DataChar,"%d  ", (int)_value_arr_u32[q]);
 		HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
 	}
 
-	sprintf(DataChar," -> ");
+	sprintf(DataChar,"->  ");
 	HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
 
 	Bubble_sort(_value_arr_u32, _aver_qnt_u8);
 
 	for (int q=0; q<_aver_qnt_u8; q++) {
-		sprintf(DataChar," %d ", (int)_value_arr_u32[q]);
+		sprintf(DataChar,"%d  ", (int)_value_arr_u32[q]);
 		HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
 	}
 		//	sprintf(DataChar,"\r\n");
@@ -104,6 +104,8 @@ uint32_t Calc_Average(uint32_t* _value_arr_u32, uint8_t _aver_qnt_u8) {
 	}
 
 	rezult_u32 = rezult_u32 / (_aver_qnt_u8-2);
+	sprintf(DataChar,"(%d)\r\n", (int)rezult_u32);
+	HAL_UART_Transmit(&huart1, (uint8_t *)DataChar, strlen(DataChar), 100);
 	return rezult_u32;
 }
 //*****************************************************************************
