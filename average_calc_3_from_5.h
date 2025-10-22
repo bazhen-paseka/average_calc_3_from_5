@@ -8,11 +8,7 @@
 * \copyright	Bazhen Levkovets
 * \copyright	Brovary, Kyiv region
 * \copyright	Ukraine
-*
-*
 *************************************************************************************
-*
-* \brief
 *
 */
 
@@ -24,11 +20,9 @@
 *								INCLUDE FILES
 **************************************************************************
 */
-
-	#include "stm32f1xx_hal.h"
-	#include "stdio.h"
-	#include <string.h>
-
+	#include "main.h"
+	#include "debug_gx.h"
+	#include "local_config.h"
 /*
 **************************************************************************
 *								    DEFINES
@@ -58,9 +52,7 @@
 *                              FUNCTION PROTOTYPES
 **************************************************************************
 */
-	
-	uint32_t Calc_Average(uint32_t* _value_arr_u32, uint8_t _aver_qnt_u8);
-	void Bubble_sort(uint32_t* _sort_arr_u32, uint8_t _sort_qnt_u8);
-
+	int		Calc_Average	(int* _value_arr_u32, uint8_t _aver_qnt_u8);
+	void 	Bubble_sort		(int* _sort_arr_u32,  uint8_t _sort_qnt_u8);
 
 #endif /* AVERAGE_CALC_3_FROM_5_H_INCLUDED */
